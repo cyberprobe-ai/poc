@@ -1,20 +1,28 @@
-from google.adk import Agent
+from contextlib import AsyncExitStack
 
-from agents.agent import MODEL_GEMINI_2_0_FLASH, get_weather, greeting_agent, farewell_agent
+from google.adk.agents import LlmAgent
+from google.adk.tools.agent_tool import AgentTool
 
-root_agent = Agent(
-    name="weather_agent_v2",  # Give it a new version name
-    model=MODEL_GEMINI_2_0_FLASH,
-    description="The main coordinator agent. Handles weather requests and delegates greetings/farewells to specialists.",
-    instruction="You are the main Weather Agent coordinating a team. Your primary responsibility is to provide weather information. "
-                "Use the 'get_weather' tool ONLY for specific weather requests (e.g., 'weather in London'). "
-                "You have specialized sub-agents: "
-                "1. 'greeting_agent': Handles simple greetings like 'Hi', 'Hello'. Delegate to it for these. "
-                "2. 'farewell_agent': Handles simple farewells like 'Bye', 'See you'. Delegate to it for these. "
-                "Analyze the user's query. If it's a greeting, delegate to 'greeting_agent'. If it's a farewell, delegate to 'farewell_agent'. "
-                "If it's a weather request, handle it yourself using 'get_weather'. "
-                "For anything else, respond appropriately or state you cannot handle it.",
-    tools=[get_weather],  # Root agent still needs the weather tool for its core task
-    # Key change: Link the sub-agents here!
-    sub_agents=[greeting_agent, farewell_agent]
-)
+from agents.nmap import create_nmap_agent
+from models.gemini import MODEL_GEMINI_2_0_FLASH
+
+
+async def create_root_agent():
+    common_exit_stack = AsyncExitStack()
+
+    nmap_agent, exit_stack = await create_nmap_agent()
+    common_exit_stack.push_async_exit(exit_stack.aclose)
+
+    agent = LlmAgent(
+        name="penetration_test_agent",
+        model=MODEL_GEMINI_2_0_FLASH,
+        description="ペネトレーションテストのためのエージェント",
+        instruction="""
+        あなたはネットワーク分析のエキスパートです。
+        ユーザーの要求に応じて適切な処理を行ってください。
+        ネットワークスキャンが必要な場合は、適切なツールを使用します。
+        スキャン結果を分析し、セキュリティの観点から適切なアドバイスを提供してください。
+        """,
+        tools=[AgentTool(nmap_agent)],
+    )
+    return agent, exit_stack
