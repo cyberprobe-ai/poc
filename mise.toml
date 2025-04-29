@@ -1,2 +1,17 @@
 [tools]
 python = "3.13.3"
+
+[env]
+mise.file = ".env"
+
+[tasks.run-cli]
+description = "Run app as CLI"
+run = [
+    "pdm run adk run src",
+]
+
+[tasks.run-webui]
+description = "Run app as WebUI"
+run = [
+    "pdm run adk web",
+]
