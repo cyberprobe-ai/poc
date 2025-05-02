@@ -1,29 +1,20 @@
-import subprocess
 from contextlib import AsyncExitStack
 from typing import Tuple
 
 from google.adk import Agent
 from google.adk.agents import LlmAgent
-from google.adk.tools.mcp_tool import MCPToolset
-from mcp import StdioServerParameters
 
-from models.gemini import MODEL_GEMINI_2_0_FLASH
+from models import MODEL_GEMINI_2_0_FLASH
+from .nmap import create_nmap_tools
 
 
-async def create_nmap_agent() -> Tuple[Agent, AsyncExitStack]:
-    # TODO: `npm root -g` 以外で良い方法がないか検討する
-    npm_root = subprocess.run(["npm", "root", "-g"], capture_output=True, text=True).stdout.strip()
-    tools, exit_stack = await MCPToolset.from_server(
-        connection_params=StdioServerParameters(
-            command="node",
-            args=[f"{npm_root}/mcp-nmap-server/dist/index.js"],
-        ),
-    )
+async def create_scanner_agent() -> Tuple[Agent, AsyncExitStack]:
+    tools, exit_stack = await create_nmap_tools()
 
     agent = LlmAgent(
         model=MODEL_GEMINI_2_0_FLASH,
-        name="network_security_scanner",
-        description="ネットワークセキュリティ診断のためのポートスキャンと脆弱性検出を実行するエージェント",
+        name="scanner_agent",
+        description="ネットワークセキュリティ診断のために、テスト対象システムをスキャンするエージェント",
         instruction=(
             "このエージェントはnmapを使用したネットワークスキャン機能を提供します。"
             "ユーザーからの指示に基づいて、特定のIPアドレスやホスト、ネットワーク範囲に対して"

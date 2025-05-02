@@ -19,7 +19,6 @@ AI エージェントによる自動ペネトレーションテストシステ�
 API Key を作成できたら `.env` ファイルに記載すること。
 
 ```
-GOOGLE_GENAI_USE_VERTEXAI=FALSE
 GOOGLE_API_KEY=PASTE_YOUR_ACTUAL_API_KEY_HERE
 ```
 

@@ -2,6 +2,9 @@
 python = "3.13.3"
 
 [env]
+GOOGLE_GENAI_USE_VERTEXAI = "FALSE"
+
+# .env には、git 管理したくない情報を記載する。
 mise.file = ".env"
 
 [tasks.run-cli]
