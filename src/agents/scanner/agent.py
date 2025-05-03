@@ -1,14 +1,14 @@
 from contextlib import AsyncExitStack
-from typing import Tuple
 
 from google.adk import Agent
 from google.adk.agents import LlmAgent
 
 from models import MODEL_GEMINI_2_0_FLASH
+
 from .nmap import create_nmap_tools
 
 
-async def create_scanner_agent() -> Tuple[Agent, AsyncExitStack]:
+async def create_scanner_agent() -> tuple[Agent, AsyncExitStack]:
     tools, exit_stack = await create_nmap_tools()
 
     agent = LlmAgent(

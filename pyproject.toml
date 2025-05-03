@@ -8,5 +8,25 @@ dependencies = ["google-adk>=0.3.0"]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
+[dependency-groups]
+dev = [
+    "ruff>=0.11.8",
+    "pydocstyle>=6.3.0",
+    "mypy>=1.15.0",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "N", "UP", "SIM", "RUF"]
+fixable = ["ALL"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
 [tool.pdm]
 distribution = true
+
+[tool.pdm.scripts]
+lint = { composite = ["ruff check .", "mypy ."] }
+format = { composite = ["ruff check --fix .", "ruff format ."] }

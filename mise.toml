@@ -18,3 +18,15 @@ description = "Run app as WebUI"
 run = [
     "pdm run adk web",
 ]
+
+[tasks.code-format]
+description = "Format code"
+run = [
+    "pdm run format",
+]
+
+[tasks.code-lint]
+description = "Lint code"
+run = [
+    "pdm run lint",
+]
