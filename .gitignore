@@ -177,3 +177,6 @@ pyrightconfig.json
 
 tmp/
 .pdm-python
+
+# npm packages
+node_modules/

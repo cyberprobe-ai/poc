@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "mcp-nmap-server": "^1.0.1"
+  }
+}

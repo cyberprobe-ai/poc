@@ -12,9 +12,7 @@ AI エージェントによる自動ペネトレーションテストシステ�
 
 ## Prerequisites
 
-* Python 3.13+
 * [mise](https://github.com/jdx/mise)
-* [pdm](https://github.com/pdm-project/pdm)
 
 ## Quick Start
 
@@ -35,7 +33,7 @@ GOOGLE_API_KEY=PASTE_YOUR_ACTUAL_API_KEY_HERE
 ```shell
 mise install
 pdm install
-npm install -g mcp-nmap-server
+npm install
 ```
 
 ### 3. アプリケーションを起動する
