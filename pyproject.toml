@@ -15,6 +15,9 @@ dev = [
     "mypy>=1.15.0",
 ]
 
+[tool.ruff]
+line-length = 200
+
 [tool.ruff.lint]
 select = ["E", "F", "B", "I", "N", "UP", "SIM", "RUF"]
 fixable = ["ALL"]

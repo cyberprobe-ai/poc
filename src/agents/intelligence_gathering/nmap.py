@@ -1,18 +1,15 @@
-import subprocess
 from contextlib import AsyncExitStack
 
 from google.adk.tools.mcp_tool import MCPTool, MCPToolset
 from mcp import StdioServerParameters
 
+from utils.npm import get_npm_root
+
 
 async def create_nmap_tools() -> tuple[list[MCPTool], AsyncExitStack]:
-    # TODO: `npm root -g` 以外で良い方法がないか検討する
-    npm_root = subprocess.run(
-        ["npm", "root", "-g"], capture_output=True, text=True
-    ).stdout.strip()
     return await MCPToolset.from_server(
         connection_params=StdioServerParameters(
             command="node",
-            args=[f"{npm_root}/mcp-nmap-server/dist/index.js"],
+            args=[f"{get_npm_root()}/mcp-nmap-server/dist/index.js"],
         ),
     )

@@ -2,6 +2,14 @@
 
 AI エージェントによる自動ペネトレーションテストシステム
 
+## Overview
+
+本システムは、[PTES](http://www.pentest-standard.org) に準拠し以下の機能を提供する。
+
+- 自動脆弱性スキャンと分析
+- インテリジェントな侵入テスト
+- レポート生成
+
 ## Prerequisites
 
 * Python 3.13+
