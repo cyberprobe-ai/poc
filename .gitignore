@@ -180,3 +180,6 @@ tmp/
 
 # npm packages
 node_modules/
+
+# Editor
+.vscode/
