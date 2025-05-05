@@ -33,6 +33,7 @@ GOOGLE_API_KEY=PASTE_YOUR_ACTUAL_API_KEY_HERE
 ### 2. Install Dependencies
 
 ```shell
+mise install
 pdm install
 npm install -g mcp-nmap-server
 ```

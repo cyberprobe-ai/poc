@@ -1,5 +1,7 @@
 [tools]
 python = "3.13.3"
+pipx = "1.7.1"
+pdm = "2.24.1"
 
 [env]
 GOOGLE_GENAI_USE_VERTEXAI = "FALSE"
