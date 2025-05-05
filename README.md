@@ -13,6 +13,7 @@ AI エージェントによる自動ペネトレーションテストシステ�
 ## Prerequisites
 
 * [mise](https://github.com/jdx/mise)
+* Docker
 
 ## Quick Start
 
@@ -36,7 +37,17 @@ pdm install
 npm install
 ```
 
-### 3. アプリケーションを起動する
+### 3. ターゲット環境を起動する
+
+1. WordPress 環境を立ち上げる。
+    1. `docker compose up -d`
+2. [http://localhost] にアクセスし、WordPress をインストールする。
+3. 既知の脆弱性が存在するプラグインをダウンロードする。
+    1. `wget -P ./tmp/wordpress https://downloads.wordpress.org/plugin/woocommerce.9.8.3.zip`
+    2. `wget -P ./tmp/wordpress https://downloads.wordpress.org/plugin/woocommerce-payments.5.6.0.zip`
+4. ダウンロードした zip ファイルを [WordPress プラグイン管理画面](http://localhost/wp-admin/plugin-install.php) からアップロードする。
+
+### 4. アプリケーションを起動する
 
 ```shell
 mise run-webui
