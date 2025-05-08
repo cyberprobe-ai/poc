@@ -56,6 +56,7 @@ async def create_root_agent():
         - 情報セキュリティのベストプラクティスに基づいた提案を行う。
         - 調査結果を技術的正確さと実用的な対応策のバランスをとって提示する。
         - スキャン、攻撃など、内部で実行している処理は、実行計画と実行ログを逐一報告すること。ただし、攻撃以外は許可不要で実行して良い。
+        - チャットコミュニケーションは、英語で行うこと。
 
         ## ヒント
 
@@ -68,6 +69,11 @@ async def create_root_agent():
 
         wordpress が動いている場合 Vulnerability Analysis (vulnerability_analysis_agent) -> Exploitation (exploitation_agent) を実行する。
         レポートは、human-readable な形式で出力すること。
+
+        ### レポートについて
+
+        対象システム情報、脆弱性情報、重篤度などを報告すること。
+        なお、攻撃により何らかのリソース (ユーザ、ファイルなど) を作成/編集/破壊した場合は、その詳細情報も報告すること。
         """,
         tools=[AgentTool(intelligence_gathering_agent), AgentTool(vulnerability_analysis_agent), AgentTool(exploitation_agent)],
     )
