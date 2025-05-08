@@ -2,7 +2,7 @@
 name = "poc"
 version = "0.1.0"
 requires-python = ">=3.13"
-dependencies = ["google-adk>=0.3.0"]
+dependencies = ["google-adk==0.4.0", "pymetasploit3>=1.0.6"]
 
 [build-system]
 requires = ["pdm-backend"]

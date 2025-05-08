@@ -4,6 +4,7 @@ from google.adk.agents import LlmAgent
 from google.adk.tools.agent_tool import AgentTool
 
 from agents.intelligence_gathering import create_intelligence_gathering_agent
+from agents.vulnerability_analysis import create_vulnerability_analysis_agent
 from models import MODEL_GEMINI_2_0_FLASH
 
 
@@ -11,6 +12,10 @@ async def create_root_agent():
     common_exit_stack = AsyncExitStack()
 
     intelligence_gathering_agent, exit_stack = await create_intelligence_gathering_agent()
+    # noinspection PyTypeChecker
+    common_exit_stack.push_async_exit(exit_stack.aclose)
+
+    vulnerability_analysis_agent, exit_stack = await create_vulnerability_analysis_agent()
     # noinspection PyTypeChecker
     common_exit_stack.push_async_exit(exit_stack.aclose)
 
@@ -30,7 +35,7 @@ async def create_root_agent():
             - Pre-engagement Interactions
             - Intelligence Gathering: use: `intelligence_gathering_agent`
             - Threat Modeling
-            - Vulnerability Analysis
+            - Vulnerability Analysis: use: `vulnerability_analysis_agent`
             - Exploitation
             - Post Exploitation
             - Reporting
@@ -46,7 +51,7 @@ async def create_root_agent():
         - 情報セキュリティのベストプラクティスに基づいた提案を行う。
         - 調査結果を技術的正確さと実用的な対応策のバランスをとって提示する。
         """,
-        tools=[AgentTool(intelligence_gathering_agent)],
+        tools=[AgentTool(intelligence_gathering_agent), AgentTool(vulnerability_analysis_agent)],
     )
     return agent, exit_stack
 

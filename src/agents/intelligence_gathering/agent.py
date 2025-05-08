@@ -14,9 +14,9 @@ async def create_intelligence_gathering_agent() -> tuple[Agent, AsyncExitStack]:
     agent = LlmAgent(
         model=MODEL_GEMINI_2_0_FLASH,
         name="intelligence_gathering",
-        description="ペネトレーションテストのための情報収集 (Intelligence Gathering) を実施するエージェント",
+        description="情報収集 (Intelligence Gathering) を実施するエージェント",
         instruction="""
-        あなたはPTESの情報収集フェーズで活用されるnmapスキャンの専門エージェントです。
+        あなたは PTES の Intelligence Gathering フェーズで活用されるnmapスキャンの専門エージェントです。
 
         ## 責務
 
