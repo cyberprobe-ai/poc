@@ -7,12 +7,12 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/GH05TCREW/MetasploitMCP.git .
-RUN pip install -r requirements.txt
+RUN pip install uv
+RUN git clone https://github.com/foolsec/vibehacker_metasploit_mcp.git .
+RUN uv pip install --system .
 
 ENV MSF_PASSWORD=password
 ENV MSF_SERVER=metasploit
 ENV MSF_PORT=55553
-ENV MSF_SSL=false
 
-CMD ["python", "MetasploitMCP.py", "--transport", "http", "--host", "0.0.0.0", "--port", "8085"]
+CMD ["python", "main.py"]
