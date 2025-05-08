@@ -25,17 +25,17 @@ services:
     depends_on:
       - db
 
-  metasploit:
-    image: metasploitframework/metasploit-framework:latest
-    command: "./msfrpcd -a 0.0.0.0 -p 55553 -U msf -P password -S -f"
-    ports:
-      - "55553:55553"
-
-  metasploit-mcp:
-    build:
-      context: .
-      dockerfile: ./docker/metasploit-mcp/Dockerfile
-    ports:
-      - "8085:8085"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+#  metasploit:
+#    image: metasploitframework/metasploit-framework:latest
+#    command: "./msfrpcd -a 0.0.0.0 -p 55553 -U msf -P password -S -f"
+#    ports:
+#      - "55553:55553"
+#
+#  metasploit-mcp:
+#    build:
+#      context: .
+#      dockerfile: ./docker/metasploit-mcp/Dockerfile
+#    ports:
+#      - "8085:8085"
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
